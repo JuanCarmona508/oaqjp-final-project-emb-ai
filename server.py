@@ -7,7 +7,10 @@ app = Flask("Emotion Detector")
 def emote_detector(): 
     text_to_analyse = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyse)
-
+    
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
+    
     return "For the given statement, the system response is 'anger': {},".format(response['anger'])+\
     " 'disgust': {}, 'fear': {}, 'joy': {}, and 'sadness': {}. The dominant emotion is {}.".format(
     response['disgust'],response['fear'],response['joy'],response['sadness'],response['dominant_emotion']) 
